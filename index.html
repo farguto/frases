@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typed.js + ScrollTrigger</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 200vh; /* Para simular una página larga y hacer scroll */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0; /* Puedes cambiar esto al color que prefieras para el fondo general */
+      overflow-x: hidden; /* Evitar desplazamiento horizontal innecesario */
+    }
+
+    #typed-text-container {
+      display: flex;
+      flex-direction: column; /* Organiza los elementos en columnas (renglones) */
+      max-width: 90vw; /* Limita el ancho del contenedor a 90% del ancho de la ventana */
+      font-size: 2rem;
+      font-weight: bold;
+      text-align: center;
+      background-color: transparent; /* Fondo transparente */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: none; /* Eliminar sombra para fondo completamente transparente */
+      white-space: nowrap; /* Mantiene las frases en una sola línea */
+      overflow: hidden; /* Evitar que el texto se salga del contenedor */
+    }
+
+    .row {
+      display: flex; /* Coloca las frases de cada fila en una sola línea */
+      margin-bottom: 20px; /* Espaciado entre las filas */
+    }
+
+    .typed-text-item {
+      margin-right: 50px; /* Espaciado entre las frases */
+      font-size: 80px; /* Ajusta el tamaño de texto a un tamaño que prefieras */
+      font-weight: bold; /* Texto grueso */
+      -webkit-text-stroke: 3px #ff00a6; /* Borde de texto */
+      -webkit-text-fill-color: transparent; /* Relleno transparente */
+      color: #000; /* Color de texto */
+      text-align: center; /* Centra el texto */
+      line-height: 1.2; /* Ajusta la altura de la línea para evitar superposición */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Contenedor del texto animado -->
+  <div id="typed-text-container">
+    <div class="row">
+      <div class="typed-text-item">Diseñando experiencias innovadoras.</div>
+      <div class="typed-text-item">Creación y gestión integral.</div>
+    </div>
+    <div class="row">
+      <div class="typed-text-item">Conexiones duraderas y personalizadas.</div>
+      <div class="typed-text-item">Eventos ÉPICOS, campañas poderosas.</div>
+    </div>
+    <div class="row">
+      <div class="typed-text-item">Innovación y creatividad en cada proyecto.</div>
+      <div class="typed-text-item">Soluciones digitales avanzadas.</div>
+    </div>
+  </div>
+
+  <!-- Librería de GSAP y ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/ScrollTrigger.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Animación para la primera fila (row 1) - Mover a la izquierda en scroll hacia abajo
+    gsap.to(".row:nth-child(1)", {
+      x: () => -window.innerWidth * 0.3, // Mover lentamente hacia la izquierda (30% del ancho)
+      ease: "power2.inOut", // Efecto suave de entrada y salida
+      scrollTrigger: {
+        trigger: "#typed-text-container",  // Elemento que desencadena la animación
+        start: "top top",  // Inicia cuando la parte superior del contenedor toca la parte superior de la pantalla
+        end: "bottom bottom", // Termina cuando la parte inferior del contenedor toca la parte inferior
+        scrub: 1, // Hace que el movimiento sea más lento al vincularlo más al scroll
+        onUpdate: (self) => {
+          if (self.direction < 0) {
+            gsap.to(".row:nth-child(1)", { x: () => window.innerWidth * 0.3 }); // Scroll hacia arriba, mover a la derecha
+          } else {
+            gsap.to(".row:nth-child(1)", { x: () => -window.innerWidth * 0.3 }); // Scroll hacia abajo, mover a la izquierda
+          }
+        }
+      }
+    });
+
+    // Animación para la segunda fila (row 2) - Mover a la derecha en scroll hacia abajo
+    gsap.to(".row:nth-child(2)", {
+      x: () => window.innerWidth * 0.3, // Mover lentamente hacia la derecha (30% del ancho)
+      ease: "power2.inOut", // Efecto suave de entrada y salida
+      scrollTrigger: {
+        trigger: "#typed-text-container",  // Elemento que desencadena la animación
+        start: "top top",  // Inicia cuando la parte superior del contenedor toca la parte superior de la pantalla
+        end: "bottom bottom", // Termina cuando la parte inferior del contenedor toca la parte inferior
+        scrub: 1, // Hace que el movimiento sea más lento al vincularlo más al scroll
+        onUpdate: (self) => {
+          if (self.direction < 0) {
+            gsap.to(".row:nth-child(2)", { x: () => -window.innerWidth * 0.3 }); // Scroll hacia arriba, mover a la izquierda
+          } else {
+            gsap.to(".row:nth-child(2)", { x: () => window.innerWidth * 0.3 }); // Scroll hacia abajo, mover a la derecha
+          }
+        }
+      }
+    });
+
+    // Animación para la tercera fila (row 3) - Mover a la izquierda en scroll hacia abajo
+    gsap.to(".row:nth-child(3)", {
+      x: () => -window.innerWidth * 0.3, // Mover lentamente hacia la izquierda (30% del ancho)
+      ease: "power2.inOut", // Efecto suave de entrada y salida
+      scrollTrigger: {
+        trigger: "#typed-text-container",  // Elemento que desencadena la animación
+        start: "top top",  // Inicia cuando la parte superior del contenedor toca la parte superior de la pantalla
+        end: "bottom bottom", // Termina cuando la parte inferior del contenedor toca la parte inferior
+        scrub: 1, // Hace que el movimiento sea más lento al vincularlo más al scroll
+        onUpdate: (self) => {
+          if (self.direction < 0) {
+            gsap.to(".row:nth-child(3)", { x: () => window.innerWidth * 0.3 }); // Scroll hacia arriba, mover a la derecha
+          } else {
+            gsap.to(".row:nth-child(3)", { x: () => -window.innerWidth * 0.3 }); // Scroll hacia abajo, mover a la izquierda
+          }
+        }
+      }
+    });
+
+  </script>
+
+</body>
+</html>
